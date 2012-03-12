@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% comment %}
+{% block head_title %}{{ title }} - {{ block.super }}{% endblock %}
+{% endcomment %}
+
+{% block head_js %} 
+  <script type="text/javascript">
+	$(document).ready(function(){
+		$("a[rel^='prettyPhoto']").prettyPhoto();
+                if (location.hash.length <= 2) {location.hash = "#!0"; location.reload();}
+                set_frame_from_hash(location.hash);
+	});
+        
+        $(window).bind('hashchange', function() {set_frame_from_hash(location.hash);});    
+
+        _num_frames = 2; 
+        _current_frame = null;
+        function set_frame_from_hash(hash) {
+                var c = hash.slice(2);
+                $("#main_frame #frame_" + c).show();
+                var title = $("#main_frame #frame_" + c).find("#title").html();
+                $(".pp_social .facebook iframe").attr('src', 'http://www.facebook.com/plugins/like.php?locale=es&href=' + encodeURIComponent(location.href) + '&layout=button_count&show_faces=true&width=500&action=like&font&colorscheme=light&amp;height=23');
+                $(".pp_social .twitter iframe").attr('src', 'http://platform.twitter.com/widgets/tweet_button.1331069346.html#_=1331075905783&count=none&id=twitter-widget-0&lang=en&original_referer=' + encodeURIComponent(location.href) + '&size=m&text=' + encodeURIComponent(title) + '%20' + encodeURIComponent(location.href) + '&via=IOVisual');
+                $(".bidi_nav #next").attr('href', '#!' + ((((c*1+1)%_num_frames)+_num_frames)%_num_frames));
+                $(".bidi_nav #prev").attr('href', '#!' + ((((c*1-1)%_num_frames)+_num_frames)%_num_frames));
+                $(".bidi_nav #count").html((c*1+1) + '/' + _num_frames);
+                if (_current_frame) $("#main_frame #frame_" + _current_frame).hide();
+                _current_frame = c;
+        }
+        
+  </script>
+{% endblock %}
+
+{% block head_menu %}
+    {% with 0 as selected %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+      <div id="title">
+        <div class="bidi_nav" style="float:right"><div id="bidi"><a href="#!0" id="prev" title="anterior">&lt;</a> <span id="count"></span> <a href="#!0" id="next" title="siguiente">&gt;</a></div></div>
+        <h1>Soy ngäbe y buglé, soy panameño</h1>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="grid_9" id="main_frame">
+    <div class="pp_social" style="float:right;"><div class="facebook"><iframe src="" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowtransparency="true"></iframe></div>
+<br />
+<div class="twitter" style="padding-left:5px;"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="" class="twitter-share-button twitter-count-none" style="width: 58px; height: 20px; " title="Twitter Tweet Button"></iframe></div>
+    </div>
+<div id="frame_0" style="display:none">
+<iframe width="635" height="357" src="http://www.youtube.com/embed/8rcsvys8zXs" frameborder="0" allowfullscreen></iframe>
+
+    <div class="description">
+      <h5 id="title">Jornada de lucha del pueblo NGÄBE-BUGLÉ</h5>
+
+      <p>
+          Lorem ipsum
+      </p>
+    </div>
+</div>
+<div id="frame_1" style="display:none">
+<iframe width="635" height="357" src="http://www.youtube.com/embed/8rcsvys8zXs" frameborder="0" allowfullscreen></iframe>
+
+    <div class="description">
+      <h5 id="title">Jornada de lucha del pueblo NGÄBE-BUGLÉ 2</h5>
+
+      <p>
+          Lorem ipsum 2
+      </p>
+    </div>
+</div>
+
+<!--
+<div style="width:480px;text-align:right;"><embed width="480" height="360" src="http://static.pbsrc.com/flash/rss_slideshow.swf" flashvars="rssFeed=http%3A%2F%2Ffeed1155.photobucket.com%2Falbums%2Fp546%2FIOVisual%2Ffeed.rss" type="application/x-shockwave-flash" wmode="transparent" /><a href="http://photobucket.com/redirect/album?showShareLB=1" target="_blank"><img src="http://pic.photobucket.com/share/icons/embed/btn_geturs.gif" style="border:none;" /></a><a href="http://s1155.photobucket.com/albums/p546/IOVisual/" target="_blank"><img src="http://pic.photobucket.com/share/icons/embed/btn_viewall.gif" style="border:none;" /></a></div>-->
+{% endblock %}
+
+{% block gallery %}
+        <!--<li>
+          <a href="/media/img/sampleimg.jpeg" rel="prettyPhoto[sample_gal]" title="Sample Photo Description"><img src="/media/img/sampleimg.jpeg" alt="Sample Photo Title" height="100" /></a>
+        </li><li>
+          <a href="/media/img/sampleimg2.jpeg" rel="prettyPhoto[sample_gal]" title="Sample Photo 2 Description"><img src="/media/img/sampleimg2.jpeg" alt="Sample Photo 2 Title" height="100" /></a>
+        </li>-->
+        
+        <li>
+          <a href="#!0"><img src="http://i1.ytimg.com/vi/8rcsvys8zXs/default.jpg" alt="Jornada de lucha del pueblo NGÄBE-BUGLÉ" />Jornada de lucha del pueblo NGÄBE-BUGLÉ</a> 
+        </li>
+        <li>
+          <a href="#!1"><img src="http://i1.ytimg.com/vi/8rcsvys8zXs/default.jpg" alt="Jornada de lucha del pueblo NGÄBE-BUGLÉ 2" />Jornada de lucha del pueblo NGÄBE-BUGLÉ 2</a>
+        </li>
+      </ul>
+{% endblock %}
